@@ -1,0 +1,15 @@
+[package]
+name = "secretpass-sport"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+aes-gcm = { version = "0.11.1", features = ["getrandom"] }
+anyhow = "1.0.104"
+argon2 = { version = "0.6.0" }
+fips203 = {version = "0.4.3", features = ["ml-kem-768"]}
+hex = "0.4.3"
+rand = { version = "0.10.2", default-features = false, features = ["chacha"] }
+rmp-serde = "1.3.1"
+serde = { version = "1.0.229", features = ["derive"] }
+x25519-dalek = { version = "3.0.0", features = ["static_secrets"] }
