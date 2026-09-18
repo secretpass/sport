@@ -2,4 +2,4 @@
 mod keys;
 pub mod utils;
 
-pub use keys::{PublicKey, PublicKeyDto, PrivateKey, PrivateKeySeed, KeyType};
+pub use keys::{PublicKey, PublicKeyDto, PrivateKey, PrivateKeySeed, EncryptionAlgorithm};

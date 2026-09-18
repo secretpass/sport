@@ -1,14 +1,14 @@
 use aes_gcm::{Aes256Gcm, KeyInit, Nonce};
 use aes_gcm::aead::Aead;
 use anyhow::anyhow;
-use serde::{Deserialize};
+use serde::{Deserialize, Serialize};
 use fips203::ml_kem_768::CipherText;
 use fips203::traits::{Decaps, SerDes};
 use crate::keys::derive::{derive_ecc_keys, EccPrivateKey, KemPrivateKey, SeedKeys, derive_kem_keys, EccPublicKey};
 use crate::keys::public::{EncryptedPackage, PublicKey};
 
-#[derive(Clone, Copy, Deserialize, Eq, PartialEq)]
-pub enum KeyType {
+#[derive(Clone, Copy, Serialize, Deserialize, Eq, PartialEq, Debug)]
+pub enum EncryptionAlgorithm {
     ECC, // X25519
     KEM, // ML-KEM-768
     Hybrid // Encrypts with both algorithms
@@ -17,7 +17,7 @@ pub enum KeyType {
 
 #[derive(Clone, Deserialize)]
 pub struct PrivateKeySeed {
-    pub key_type: KeyType,
+    pub algorithm: EncryptionAlgorithm,
     pub keys: SeedKeys
 }
 
@@ -30,14 +30,14 @@ pub struct PrivateKey {
 
 impl PrivateKey {
     pub fn from_seed(seed: PrivateKeySeed) -> anyhow::Result<Self> {
-        let (ecc_public_key, ecc_private_key) = if seed.key_type == KeyType::ECC || seed.key_type == KeyType::Hybrid {
+        let (ecc_public_key, ecc_private_key) = if seed.algorithm == EncryptionAlgorithm::ECC || seed.algorithm == EncryptionAlgorithm::Hybrid {
             let (public_key, private_key) = derive_ecc_keys(seed.keys.clone())?;
             (Some(public_key), Some(private_key))
         } else {
             (None, None)
         };
 
-        let (kem_public_key, ken_private_key) = if seed.key_type == KeyType::KEM || seed.key_type == KeyType::Hybrid {
+        let (kem_public_key, ken_private_key) = if seed.algorithm == EncryptionAlgorithm::KEM || seed.algorithm == EncryptionAlgorithm::Hybrid {
             let (public_key, private_key) = derive_kem_keys(seed.keys.clone())?;
             (Some(public_key), Some(private_key))
         } else {

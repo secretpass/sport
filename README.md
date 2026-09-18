@@ -1,6 +1,6 @@
 # SecretPass Sport
 
-SecretPass Sport is a non-custodial credential management framework with support for local(version control) storage or through our [managed cloud](https://secretsport.cloud).
+SecretPass Sport is a noncustodial credential management framework with support for local(version control) storage or through our [managed cloud](https://secretsport.cloud).
 
 ## How it works
 

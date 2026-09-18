@@ -1,5 +1,5 @@
 use rand::Rng;
-use secretpass_sport::{PrivateKeySeed, PrivateKey, KeyType};
+use secretpass_sport::{PrivateKeySeed, PrivateKey, EncryptionAlgorithm};
 use secretpass_sport::utils::get_global_rng;
 
 fn create_seed_keys() -> [[u8; 32]; 2] {
@@ -18,15 +18,15 @@ fn create_same_seed_key() -> (PrivateKey, PrivateKey, PrivateKey) {
     let seed_keys = create_seed_keys();
     (
         PrivateKey::from_seed(PrivateKeySeed {
-            key_type: KeyType::ECC,
+            algorithm: EncryptionAlgorithm::ECC,
             keys: seed_keys,
         }).unwrap(),
         PrivateKey::from_seed(PrivateKeySeed {
-            key_type: KeyType::KEM,
+            algorithm: EncryptionAlgorithm::KEM,
             keys: seed_keys,
         }).unwrap(),
         PrivateKey::from_seed(PrivateKeySeed {
-            key_type: KeyType::Hybrid,
+            algorithm: EncryptionAlgorithm::Hybrid,
             keys: seed_keys,
         }).unwrap()
     )

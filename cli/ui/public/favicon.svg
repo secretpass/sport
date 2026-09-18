@@ -1,0 +1,7 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 64 64" fill="none">
+    <title>Secret Pass Spot</title>
+    <circle cx="32" cy="32" r="26" stroke-width="10" stroke="#000000" fill="#ffffff" />
+    <line x1="14" y1="50" x2="50" y2="14" stroke-width="4" stroke="#ffffff" stroke-linecap="round" />
+    <circle cx="32" cy="32" r="12" fill="#000000" />
+</svg>
